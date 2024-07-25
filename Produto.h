@@ -30,6 +30,7 @@ int Vazia(TLista Lista); //Função que ira verificar se a lista esta vazia, rep
      //se elas são iguais, apontam para o mesmo e está vazia, se não apontam p diferentes. 
 void Inserir(TProduto x, TLista *Lista);
 void Imprimir(TLista Lista);
+TCelula* Pesquisar(TLista Lista, TProduto Item);
 
 #endif
     

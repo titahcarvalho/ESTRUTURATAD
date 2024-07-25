@@ -3,7 +3,7 @@
 void FLVazia(TLista *Lista) {//função para criar uma Lista //repare que aqui há a utilização do ponteiro devido a situação ser uma passagem por referencia onde há alterações
     Lista->primeiro = (TCelula*) malloc(sizeof(TCelula));
     Lista->ultimo = Lista->primeiro;
-    Lista->primeiro -> prox = NULL;
+    Lista->primeiro->prox = NULL;
     Lista->tamanho = 0;
 }
     
@@ -31,3 +31,13 @@ void Imprimir(TLista Lista){
         Aux = Aux -> prox;
     }
 }
+ //operação para realizar uma busca/pesquisa
+    TCelula* Pesquisar(TLista Lista, TProduto Item){
+        TCelula* Aux = Lista.primeiro;
+        while(Aux->prox != NULL){
+            if(Aux->prox->item.codigo ==Item.codigo)
+            return Aux;
+            Aux = Aux->prox;
+        }
+        return NULL;
+    }
