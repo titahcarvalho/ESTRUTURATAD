@@ -7,9 +7,15 @@ int main(){
     TProduto x,y;//y usado para pesquisar
     TLista L1;
     FLVazia(&L1);
+
     
+    LerProduto(&x);
+    Inserir(x, &L1);
+    
+    LerProduto(&x);
+    Inserir(x, &L1);
    
-    x.codigo = 7;
+    /*x.codigo = 7;
     strcpy(x.descricao, "Geladeira 800L"); //aqui foi usada a virgula
     strcpy(x.nome, "Geladeira Friii");
     x.quantidade = 4;
@@ -30,7 +36,7 @@ int main(){
     strcpy(x.nome,"Geladeira Esfriou");
     x.quantidade = 14;
     x.preco = 2304;
-    Inserir(x, &L1);
+    Inserir(x, &L1);*/
     
     Imprimir(L1);
     

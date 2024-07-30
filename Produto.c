@@ -19,15 +19,37 @@ void Inserir(TProduto x, TLista *Lista){
     Lista->tamanho++;
 }
 
+void LerProduto(TProduto *Item){
+    printf("\n Digite o código do produto:");
+    fflush(stdin);
+    scanf("%d",&Item->codigo);
+    printf("\n Digite a descrição do produto:");
+    fflush(stdin);
+    fgets(Item->descricao,100,stdin);
+    printf("\n Digite o nome do produto:");
+    fflush(stdin);
+    fgets(Item->nome,50,stdin);
+    printf("\n Digite a quantidade do produto:");
+    fflush(stdin);
+    scanf("%d",&Item->quantidade);
+    printf("\n Digite o valor do produto:");
+    fflush(stdin);
+    scanf("%f",&Item->preco);
+
+}
+void ImprimirProduto(TProduto Item){
+        printf("------------------------------------\n");
+        printf("Código:%d\n",Item.codigo);
+        printf("Descrição:%s\n",Item.descricao);
+        printf("Nome do produto:%s\n",Item.nome);
+        printf("Quantidade em estoque:%d\n",Item.quantidade);
+        printf("Preço: $%.2f\n",Item.preco);
+}
+
 void Imprimir(TLista Lista){
     TCelula* Aux = Lista.primeiro->prox;
     while(Aux != NULL){
-        printf("------------------------------------\n");
-        printf("Código:%d\n", Aux->item.codigo);
-        printf("Descrição:%s\n", Aux->item.descricao);
-        printf("Nome do produto:%s\n", Aux->item.nome);
-        printf("Quantidade em estoque:%d\n", Aux->item.quantidade);
-        printf("Preço: $%2.f\n", Aux->item.preco);
+        ImprimirProduto(Aux->item); // Chama ImprimirProduto para cada item da lista
         Aux = Aux -> prox;
     }
 }
@@ -41,3 +63,17 @@ void Imprimir(TLista Lista){
         }
         return NULL;
     }
+void Excluir(TLista *Lista, TProduto *Item){
+    TCelula *Aux1, *Aux2;
+    Aux1 = Pesquisar(*Lista, *Item);
+    if(Aux1 != NULL){
+        Aux2 = Aux1 -> prox;
+        Aux1->prox = Aux2-> prox;
+        *Item = Aux2-> item;
+        if(Aux1->prox == NULL){
+            Lista-> ultimo = Aux1;
+            free(Aux2);
+            Lista-> tamanho--;
+        }
+    }
+}    

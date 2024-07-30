@@ -29,8 +29,10 @@ void FLVazia(TLista *Lista); //função para criar uma Lista //repare que aqui h
 int Vazia(TLista Lista); //Função que ira verificar se a lista esta vazia, repare que esá sem ponteiro, pois é uma passagem por valor sem alterações permanentes.
      //se elas são iguais, apontam para o mesmo e está vazia, se não apontam p diferentes. 
 void Inserir(TProduto x, TLista *Lista);
+void LerProduto(TProduto *Item);
+void ImprimirProduto(TProduto Item);
 void Imprimir(TLista Lista);
 TCelula* Pesquisar(TLista Lista, TProduto Item);
-
+void Excluir(TLista *Lista, TProduto *Item);// onde o item será excluido?, de onde, o que, qual?
 #endif
     
