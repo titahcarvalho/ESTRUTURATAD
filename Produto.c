@@ -18,6 +18,31 @@ void Inserir(TProduto x, TLista *Lista){
     Lista->ultimo->prox = NULL;
     Lista->tamanho++;
 }
+ //operação para realizar uma busca/pesquisa
+    TCelula* Pesquisar(TLista Lista, TProduto Item){
+        TCelula* Aux = Lista.primeiro;
+        while(Aux->prox != NULL){
+            if(Aux->prox->item.codigo ==Item.codigo)
+            return Aux;
+            Aux = Aux->prox;
+        }
+        return NULL;
+    }
+    void Excluir(TLista *Lista, TProduto *Item){
+    TCelula *Aux1, *Aux2;
+    Aux1 = Pesquisar(*Lista, *Item);
+    if(Aux1 != NULL){
+        Aux2 = Aux1 -> prox;
+        Aux1->prox = Aux2-> prox;
+        *Item = Aux2-> item;
+        if(Aux1->prox == NULL){
+            Lista-> ultimo = Aux1;
+            free(Aux2);
+            Lista-> tamanho--;
+            
+        }
+    }
+}  
 
 void LerProduto(TProduto *Item){
     printf("\n Digite o código do produto:");
@@ -53,27 +78,17 @@ void Imprimir(TLista Lista){
         Aux = Aux -> prox;
     }
 }
- //operação para realizar uma busca/pesquisa
-    TCelula* Pesquisar(TLista Lista, TProduto Item){
-        TCelula* Aux = Lista.primeiro;
-        while(Aux->prox != NULL){
-            if(Aux->prox->item.codigo ==Item.codigo)
-            return Aux;
-            Aux = Aux->prox;
-        }
-        return NULL;
-    }
-void Excluir(TLista *Lista, TProduto *Item){
-    TCelula *Aux1, *Aux2;
-    Aux1 = Pesquisar(*Lista, *Item);
-    if(Aux1 != NULL){
-        Aux2 = Aux1 -> prox;
-        Aux1->prox = Aux2-> prox;
-        *Item = Aux2-> item;
-        if(Aux1->prox == NULL){
-            Lista-> ultimo = Aux1;
-            free(Aux2);
-            Lista-> tamanho--;
-        }
-    }
-}    
+
+void LiberarLista(TLista *Lista){//tem passagem por referência devido ao free que usaremos adiante //ver esse ponteiro 
+   TCelula *Aux1;
+   TCelula *Aux2;
+   Aux1 = Lista->primeiro;
+   
+   while( Aux1 != NULL){
+            Aux2 = Aux1->prox;
+            free(Aux1);
+            Aux1 = Aux2;
+            }
+    Lista->primeiro = Lista->ultimo = NULL;
+    Lista->tamanho = 0;
+}   
