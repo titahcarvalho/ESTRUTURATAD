@@ -1,94 +1,133 @@
 #include "Produto.h"
 
-void FLVazia(TLista *Lista) {//função para criar uma Lista //repare que aqui há a utilização do ponteiro devido a situação ser uma passagem por referencia onde há alterações
+void FLVazia(TLista *Lista) {
     Lista->primeiro = (TCelula*) malloc(sizeof(TCelula));
     Lista->ultimo = Lista->primeiro;
     Lista->primeiro->prox = NULL;
     Lista->tamanho = 0;
 }
-    
-int Vazia(TLista Lista){ //Função que ira verificar se a lista esta vazia, repare que esá sem ponteiro, pois é uma passagem por valor sem alterações permanentes.
-    return (Lista.primeiro == Lista.ultimo); //se elas são iguais, apontam para o mesmo e está vazia, se não apontam p diferentes. 
-}  
 
-void Inserir(TProduto x, TLista *Lista){
-    Lista->ultimo->prox = (TCelula*) malloc(sizeof(TCelula)); //criou aqui um quadradinhos da celula com os structs definidos para os itens dos produtos e o prox
+int Vazia(TLista Lista) { 
+    return (Lista.primeiro == Lista.ultimo); 
+}
+
+void Inserir(TProduto x, TLista *Lista) {
+    Lista->ultimo->prox = (TCelula*) malloc(sizeof(TCelula)); 
     Lista->ultimo = Lista->ultimo->prox;
     Lista->ultimo->item = x;
     Lista->ultimo->prox = NULL;
     Lista->tamanho++;
 }
- //operação para realizar uma busca/pesquisa
-    TCelula* Pesquisar(TLista Lista, TProduto Item){
-        TCelula* Aux = Lista.primeiro;
-        while(Aux->prox != NULL){
-            if(Aux->prox->item.codigo ==Item.codigo)
+
+TCelula* Pesquisar(TLista Lista, TProduto Item) {
+    TCelula* Aux = Lista.primeiro;
+    while(Aux->prox != NULL) {
+        if(Aux->prox->item.codigo == Item.codigo)
             return Aux;
-            Aux = Aux->prox;
-        }
-        return NULL;
+        Aux = Aux->prox;
     }
-    void Excluir(TLista *Lista, TProduto *Item){
+    return NULL;
+}
+TCelula* PesquisarNome(TLista Lista, TProduto Item) {
+    TCelula* Aux = Lista.primeiro;
+    while(Aux->prox != NULL) {
+        if(Aux->prox->item.nome == Item.nome)
+            return Aux;
+        Aux = Aux->prox;
+    }
+    return NULL;
+}
+
+void Excluir(TLista *Lista, TProduto *Item) {
     TCelula *Aux1, *Aux2;
     Aux1 = Pesquisar(*Lista, *Item);
-    if(Aux1 != NULL){
-        Aux2 = Aux1 -> prox;
-        Aux1->prox = Aux2-> prox;
-        *Item = Aux2-> item;
-        if(Aux1->prox == NULL){
-            Lista-> ultimo = Aux1;
-            free(Aux2);
-            Lista-> tamanho--;
-            
+    if(Aux1 != NULL) {
+        Aux2 = Aux1->prox;
+        Aux1->prox = Aux2->prox;
+        *Item = Aux2->item;
+        if(Aux1->prox == NULL) {
+            Lista->ultimo = Aux1;
         }
+        free(Aux2);
+        Lista->tamanho--;
+    } else {
+        Item->codigo = -1; // Indicador de falha na exclusão
     }
-}  
+} 
 
 void LerProduto(TProduto *Item){
-    printf("\n Digite o código do produto:");
+    int numeroDeProdutos = 0;
+    printf("\nDigite a quantidade de produtos a serem inseridos: ");
+    scanf("%d", &numeroDeProdutos);
+    
+    for( int f = 0; f<numeroDeProdutos; f++){
+    printf("Digite o código do produto %d:", f+1);
     fflush(stdin);
     scanf("%d",&Item->codigo);
-    printf("\n Digite a descrição do produto:");
+    getchar();
+    printf("Digite a descrição do produto %d:",f+1);
     fflush(stdin);
     fgets(Item->descricao,100,stdin);
-    printf("\n Digite o nome do produto:");
+    getchar();
+    printf("Digite o nome do produto %d:",f+1);
     fflush(stdin);
     fgets(Item->nome,50,stdin);
-    printf("\n Digite a quantidade do produto:");
+    getchar();
+    printf("Digite a quantidade do produto %d em estoque:", f+1);
     fflush(stdin);
     scanf("%d",&Item->quantidade);
-    printf("\n Digite o valor do produto:");
+    getchar();
+    printf("Digite o valor do produto %d:", f+1);
     fflush(stdin);
     scanf("%f",&Item->preco);
-
+    getchar();
+    }
 }
 void ImprimirProduto(TProduto Item){
-        printf("------------------------------------\n");
-        printf("Código:%d\n",Item.codigo);
-        printf("Descrição:%s\n",Item.descricao);
-        printf("Nome do produto:%s\n",Item.nome);
-        printf("Quantidade em estoque:%d\n",Item.quantidade);
-        printf("Preço: $%.2f\n",Item.preco);
+    printf("------------------------------------");
+    printf("\nCódigo:%d",Item.codigo);
+    printf("\nDescrição:%s",Item.descricao);
+    printf("\nNome do produto:%s",Item.nome);
+    printf("\nQuantidade em estoque:%d",Item.quantidade);
+    printf("\nPreço: $%.2f",Item.preco);
 }
 
-void Imprimir(TLista Lista){
+
+void Imprimir(TLista Lista) {
     TCelula* Aux = Lista.primeiro->prox;
-    while(Aux != NULL){
-        ImprimirProduto(Aux->item); // Chama ImprimirProduto para cada item da lista
-        Aux = Aux -> prox;
+    while(Aux != NULL) {
+        ImprimirProduto(Aux->item); 
+        Aux = Aux->prox;
     }
 }
 
-void LiberarLista(TLista *Lista){//tem passagem por referência devido ao free que usaremos adiante //ver esse ponteiro 
-   TCelula *Aux1;
-   TCelula *Aux2;
-   Aux1 = Lista->primeiro;
+void LiberarLista(TLista *Lista) {
+    TCelula *Aux1, *Aux2;
+    Aux1 = Lista->primeiro;
    
-   while( Aux1 != NULL){
-            Aux2 = Aux1->prox;
-            free(Aux1);
-            Aux1 = Aux2;
-            }
+    while(Aux1 != NULL) {
+        Aux2 = Aux1->prox;
+        free(Aux1);
+        Aux1 = Aux2;
+    }
+
     Lista->primeiro = Lista->ultimo = NULL;
     Lista->tamanho = 0;
-}   
+}
+
+void LiberarLista2(TLista *Lista){
+    while( !Vazia(*Lista)){
+        Excluir(Lista, &Lista->primeiro->prox->item);
+    }
+    free (Lista->primeiro);
+    Lista->primeiro = NULL;
+    
+}
+void AtualizarLista(TLista *Lista, TProduto Item){
+    TCelula *Aux1;
+    Aux1 = PesquisarNome(*Lista, Item);
+    if(Aux1 != NULL){
+        LerProduto(&Item);
+    }
+    
+}
