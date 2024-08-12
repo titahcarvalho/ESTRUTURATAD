@@ -9,15 +9,16 @@ int main(){
     TLista L1;
     FLVazia(&L1);
 
-    while(escolha != 6){
+    while(escolha != 7){ //RELEMBRAR COMO FAZER A CHAMADA P REPETIR 10 VEZES O INSERIR
         printf("\n|| MENU ||\n");
-        printf("Escolha uma das acoes:\n");
         printf("|1| Inserir produtos.\n");
         printf("|2| Buscar um produto.\n");
         printf("|3| Imprimir produtos em estoque.\n");
         printf("|4| Excluir produto.\n");
         printf("|5| Atualizar produtos em estoque.\n");
-        printf("|6| Sair.\n");
+        printf("|6| Ordenar produtos.\n");
+        printf("|7| Sair.\n");
+        printf("Escolha uma das acoes:");
         scanf("%d", &escolha);
 
         switch (escolha) {
@@ -29,21 +30,18 @@ int main(){
                 break;
 
             case 2:
-                printf("\n------------------------------------------------------\n");
-                printf("|Digite o código para pesquisar um produto específico:|"); 
+                printf("\nDigite o codigo para pesquisar um produto especifico:"); 
                 scanf("%d", &y.codigo);
                 TCelula* p = Pesquisar(L1, y);
 
                 if (p != NULL) {
-                    printf("------------------------------------------------------\n");
-                    printf("|Produto %d encontrado!|\n", p->prox->item.codigo);
-                    printf("|Nome: %s\n|", p->prox->item.nome);
-                    printf("|Descrição: %s\n|", p->prox->item.descricao);
-                    printf("|Quantidade: %d\n|", p->prox->item.quantidade);
-                    printf("|Valor: $%.2f\n|", p->prox->item.preco);
+                    printf("\nProduto %d encontrado!", p->prox->item.codigo);
+                    printf("\nNome: %s", p->prox->item.nome);
+                    printf("\nDescricao: %s", p->prox->item.descricao);
+                    printf("\nQuantidade: %d", p->prox->item.quantidade);
+                    printf("\nValor: $%.2f", p->prox->item.preco);
                 } else {
-                    printf("\n------------------------------------------------------\n");
-                    printf("|Produto %d não encontrado.|", y.codigo);
+                    printf("Produto %d nao encontrado.", y.codigo);
                 }
                 break;
 
@@ -52,8 +50,7 @@ int main(){
                 break;
 
             case 4:
-                printf("\n------------------------------------------------------\n");
-                printf("|Digite o código para excluir um produto específico:|"); 
+                printf("\nDigite o codigo para excluir um produto especifico:"); 
                 scanf("%d", &y.codigo);
                 
                 TProduto t;
@@ -61,22 +58,28 @@ int main(){
                 Excluir(&L1, &t);
             
                 if(t.codigo != -1) {
-                    printf("|Produto excluído:|");
+                    printf("\nProduto excluido:");
                     ImprimirProduto(t);
                 } else {
-                    printf("|Não foi possível excluir o produto.|");
+                    printf("\nNao foi possivel excluir o produto.");
                 }
                 break;
             case 5:
-            
-                 break;
+                printf("\nDigite o nome do produto que deseja atualizar:");
+               // fflush(stdin);
+                //fgets(y.nome, 100, stdin);
+                scanf("%s",y.nome);
+                Atualizar(&L1, y);
+                break;
             case 6:
+                    OrdemCrescente(x,&L1);
+            case 7:
                 LiberarLista(&L1);
-                printf("|Encerrando...|");
+                printf("\nEncerrando...aperta no enter para fechar a Tela");
                 break;
 
             default:
-                printf("|Opção inválida. Tente novamente.|");
+                printf("\nOpcao invalida. Tente novamente.");
                 break;
         }
     }
