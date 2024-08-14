@@ -35,7 +35,7 @@ void LiberarLista(TLista *Lista); //void LiberarLista2(TLista *Lista);
 void Atualizar(TLista *Lista, TProduto Item);
 void OrdemCrescente(TProduto x, TLista *Lista);
 int CompararLista(TLista x, TLista y);//vai apenas comparar o item nome.
-//void ConcatenarListas();
-//void BuscarItem();
+void ConcatenarListas(TLista *L1, TLista *L2, TProduto x);
+//void BuscarDados();
 #endif
 

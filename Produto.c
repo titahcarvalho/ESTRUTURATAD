@@ -1,5 +1,6 @@
 #include "Produto.h"
 #include <string.h>
+#include <stdbool.h>
 
 void FLVazia(TLista *Lista) {
     Lista->primeiro = (TCelula*) malloc(sizeof(TCelula));
@@ -82,10 +83,10 @@ void LerProduto(TProduto *Item){
 
 }
 void ImprimirProduto(TProduto Item){
-    printf("\nCodigo:%d",Item.codigo);
-    printf("\nDescricao:%s",Item.descricao);
     printf("\nNome do produto:%s",Item.nome);
-    printf("\nQuantidade em estoque:%d",Item.quantidade);
+    printf("Codigo:%d",Item.codigo);
+    printf("\nDescricao:%s",Item.descricao);
+    printf("Quantidade em estoque:%d",Item.quantidade);
     printf("\nPreco: $%.2f",Item.preco);
 }
 
@@ -175,8 +176,14 @@ int CompararLista(TLista x, TLista y) {
      return flag;
 }
 
-//void ConcatenarListas(TLista *L1 *L2)
-/*void imprimirDados(TLista Lista, TProduto Item) {
+void ConcatenarListas(TLista *L1, TLista *L2, TProduto x) {
+    while(Vazia(*L2) != true) { // enquanto a lista 2 não estiver vazia, //função liberarlista e a chamada de Excluir
+        x = L2->primeiro->prox->item;
+        Excluir(L2, &x);
+        Inserir(x,L1); //OrdemCrescente(x, L1);
+    }
+}
+/*void BuscarDados(TLista Lista, TProduto Item) {
     //Verificação de Validade de i: Precisamos garantir que i é válido, ou seja, i deve ser maior ou igual a 1 e menor ou igual ao tamanho da lista.
     int contador = 1;
     TCelula* Aux;

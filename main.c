@@ -11,7 +11,7 @@ int main(){
     FLVazia(&L2);
     int tst;
 
-    while(escolha != 7){
+    while(escolha != 8){
         printf("\n|| MENU ||\n");
         printf("|1| Inserir produtos.\n");
         printf("|2| Buscar um produto.\n");
@@ -19,7 +19,8 @@ int main(){
         printf("|4| Excluir produto.\n");
         printf("|5| Atualizar produtos em estoque.\n");
         printf("|6| Ordem crescente de produtos.\n");
-        printf("|7| Sair.\n");
+        printf("|7| Concatenar Listas.\n");
+        printf("|8| Sair.\n");
         printf("Escolha uma das acoes:");
         scanf("%d", &escolha);
 
@@ -30,7 +31,7 @@ int main(){
                     Inserir(x, &L1);
                     Inserir(x,&L2);//segunda lista
                     tst = CompararLista(L1,L2); //SEm o & pois não ha p ponteiro na função
-                    printf("%i",tst);
+                    printf("%i - se for 0 as listas estão com tamanhos diferentes, se for 1 as listas estão iguais em tamanho.",tst);
                 break;
 
             case 2:
@@ -50,9 +51,11 @@ int main(){
                 break;
 
             case 3:
-                printf("\n----------------------- Produtos em estoque:-----------------------");
+                printf("\n----------------------- Produtos em estoque Lista L1:-----------------------");
                 Imprimir(L1);
-                printf("\nTotal de produtos: %i",L1.tamanho );
+                printf("\n----------------------------------------------------------------------------");
+                printf("\nTotal de produtos no estoque: %i",L1.tamanho );
+                printf("\n----------------------------------------------------------------------------");
                 break;
 
             case 4:
@@ -78,13 +81,17 @@ int main(){
                 Atualizar(&L1, y);
                 break;
             case 6:
-                    printf("Digite o nome do produto a inserir:");
+                    printf("Digite o nome do produto a INSERIR na lista:");
                     fflush(stdin);
                     fgets(x.nome,100,stdin);
                     //Inserir(x,&L1); não é necessário aqui
-                    OrdemCrescente(x,&L1);
+                    OrdemCrescente(x,&L1); //verificar a implementação e a chamada da função OrdemCrescente, no caso a função Inserir não esta sendo chamada corretamente para adicionar uma célula na lista conforme a ordem.
                     break;
             case 7:
+                printf("Unindo as listas...");
+                ConcatenarListas(&L1,&L2, x);
+                break;
+            case 8:
                 LiberarLista(&L1);
                 printf("\nEncerrando...aperta no enter para fechar a Tela");
                 break;
