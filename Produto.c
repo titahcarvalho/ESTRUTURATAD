@@ -1,5 +1,5 @@
 #include "Produto.h"
-#include <string.h>  
+#include <string.h>
 
 void FLVazia(TLista *Lista) {
     Lista->primeiro = (TCelula*) malloc(sizeof(TCelula));
@@ -8,12 +8,12 @@ void FLVazia(TLista *Lista) {
     Lista->tamanho = 0;
 }
 
-int Vazia(TLista Lista) { 
-    return (Lista.primeiro == Lista.ultimo); 
+int Vazia(TLista Lista) {
+    return (Lista.primeiro == Lista.ultimo);
 }
 
 void Inserir(TProduto x, TLista *Lista) {
-    Lista->ultimo->prox = (TCelula*) malloc(sizeof(TCelula)); 
+    Lista->ultimo->prox = (TCelula*) malloc(sizeof(TCelula));
     Lista->ultimo = Lista->ultimo->prox;
     Lista->ultimo->item = x;
     Lista->ultimo->prox = NULL;
@@ -31,7 +31,7 @@ TCelula* Pesquisar(TLista Lista, TProduto Item) {
 }
 TCelula* PesquisarNome(TLista Lista, TProduto Item) {
     TCelula* Aux = Lista.primeiro->prox;
-    while(Aux->prox != NULL) {
+    while(Aux != NULL) {//retirar prox
         if(strcmp(Aux->item.nome, Item.nome) == 0)//isso estava errado
             return Aux;
         Aux = Aux->prox;
@@ -54,21 +54,21 @@ void Excluir(TLista *Lista, TProduto *Item) {
     } else {
         Item->codigo = -1; // Indicador de falha na exclusão
     }
-} 
+}
 
 void LerProduto(TProduto *Item){
-    printf("\n----------------------------------" ); 
-    printf("\nInserir Produto selecionado:\n" );      
+    printf("\n----------------------------------" );
+    printf("\nOpcao 'Inserir Produto' selecionado.\n" );
     printf("\nDigite o codigo do produto:" );
     fflush(stdin);
     scanf("%d",&Item->codigo);
     getchar();
     printf("\nDigite a descricao do produto:");
-    //fflush(stdin);
+    fflush(stdin);
     fgets(Item->descricao,100,stdin);
     //getchar();
     printf("\nDigite o nome do produto:");
-    //fflush(stdin);
+    fflush(stdin);
     fgets(Item->nome,100,stdin);
     //getchar();
     printf("\nDigite a quantidade do produto em estoque:");
@@ -79,7 +79,7 @@ void LerProduto(TProduto *Item){
     fflush(stdin);
     scanf("%f",&Item->preco);
    // getchar();
-    
+
 }
 void ImprimirProduto(TProduto Item){
     printf("\nCodigo:%d",Item.codigo);
@@ -93,7 +93,7 @@ void ImprimirProduto(TProduto Item){
 void Imprimir(TLista Lista) {
     TCelula* Aux = Lista.primeiro->prox;
     while(Aux != NULL) {
-        ImprimirProduto(Aux->item); 
+        ImprimirProduto(Aux->item);
         Aux = Aux->prox;
     }
 }
@@ -101,7 +101,7 @@ void Imprimir(TLista Lista) {
 void LiberarLista(TLista *Lista) {
     TCelula *Aux1, *Aux2;
     Aux1 = Lista->primeiro;
-   
+
     while(Aux1 != NULL) {
         Aux2 = Aux1->prox;
         free(Aux1);
@@ -118,56 +118,79 @@ void LiberarLista2(TLista *Lista){
     }
     free (Lista->primeiro);
     Lista->primeiro = NULL;
-    
+
 }
 void Atualizar(TLista *Lista, TProduto Item){
     TCelula *Aux1;
     Aux1 = PesquisarNome(*Lista, Item);
     if(Aux1 != NULL){
+        printf("Produto encontrado %s", Aux1->item.nome);
         printf("\nDigite os seguintes dados do produto a ser atualizado:");
         LerProduto (&Aux1->item);//(&Aux1->prox->item);
     } else {
         printf("Produto nao encontrado.");
     }
-    
+
 }
 void OrdemCrescente(TProduto x, TLista *Lista){
     TCelula *celulaNova = (TCelula*)malloc(sizeof(TCelula));
     celulaNova->item = x;                 //criação da celula nova a ser inserida em ordem crescnte de nome
-    celulaNova->prox = NULL;
-    
-    if(Lista->primeiro == NULL){ //caso questão A.
-       /* Lista->primeiro = celulaNova;
-        Lista->ultimo = celulaNova;         //NO CASO AQUI DEVE SER INSERIDO A FUNÇÃO INSERIR KKK
-        Lista->tamanho++;
-        return;*/
-        Inserir(x, Lista);
-        
-    } else if(strcmp(x.nome, Lista->ultimo->item.nome)> 0 ){ //caso questão B 
-    //if(strmp(S1,S2) == 0){
-        //printf("São Iguais")
+    celulaNova->prox = NULL;             //parte do enxerto
+
+    if(Vazia(*Lista) || strcmp(Lista->ultimo->item.nome, x.nome) < 0 ){ //caso questão A e caso B - inserimos a função de conferir se está vazia e a comparação
         Inserir(x, Lista);
         return;
     }
-     
-    TCelula *anterior = NULL;
-    TCelula *atual = Lista->primeiro;
-    
-    while(atual != NULL && strcmp(x.nome, atual->item.nome) > 0){
-        anterior = atual;
-        atual = atual->prox;
-        
-        if(anterior == NULL){ //inserir no inicio
-            celulaNova->prox = Lista->primeiro;
-            Lista->primeiro = celulaNova;
-        }else //inserir no meio
-            celulaNova->prox = anterior->prox;
-            anterior->prox = celulaNova;
-    }
-        if(celulaNova->prox == NULL){ //atualiza o último se necessário
-             Lista->ultimo = celulaNova;
-        
+    TCelula *Aux;
+    Aux = Lista->primeiro;
+    while( Aux != NULL) {
+        if(strcmp(Aux->prox->item.nome, x.nome) > 0) {
+            celulaNova = Aux->prox;
+            Aux->prox = celulaNova;
+           // Inserir(x,Lista); verificar se aqui deve usar essa chamada de função
+            return;
         }
-        Lista->tamanho++;
-    
+        Aux = Aux->prox;
+    }
 }
+int CompararLista(TLista x, TLista y) {
+    int flag;
+    flag = 1;
+    TCelula *Aux1, *Aux2;
+    Aux1 = x.primeiro->prox; //x no caso não é ponteiro
+    Aux2 = y.primeiro->prox;//y no caso não é ponteiro
+    if((x.tamanho - y.tamanho)!= 0){
+        return 0;
+    }
+    while(Aux1 != NULL){
+        if(strcmp(Aux1->item.nome, Aux2->item.nome) == 0) {
+            Aux1 = Aux1->prox;
+            Aux2 = Aux2->prox;
+        } else {
+            Aux1 = Aux1->prox;
+            Aux2 = Aux2->prox;
+            flag = 0;
+        }
+    }
+     return flag;
+}
+
+//void ConcatenarListas(TLista *L1 *L2)
+/*void imprimirDados(TLista Lista, TProduto Item) {
+    //Verificação de Validade de i: Precisamos garantir que i é válido, ou seja, i deve ser maior ou igual a 1 e menor ou igual ao tamanho da lista.
+    int contador = 1;
+    TCelula* Aux;
+    Aux = Lista.primeiro->prox;
+    while(Aux != NULL) {
+        if(contador == Lista.tamanho){
+            printf("Dados da %d célula:",xcelulaaprocurar);
+            ImprimirProduto(Aux->prox);
+            Aux = Aux->prox;
+            contador++;
+    }else {
+        printf("Dados não encontrados.");
+    }
+    return;
+}*/
+
+
