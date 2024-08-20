@@ -61,25 +61,18 @@ void LerProduto(TProduto *Item){
     printf("\n----------------------------------" );
     printf("\nOpcao 'Inserir Produto' selecionado.\n" );
     printf("\nDigite o codigo do produto:" );
-    fflush(stdin);
     scanf("%d",&Item->codigo);
     getchar();
     printf("\nDigite a descricao do produto:");
-    fflush(stdin);
     fgets(Item->descricao,100,stdin);
-    //getchar();
     printf("\nDigite o nome do produto:");
-    fflush(stdin);
     fgets(Item->nome,100,stdin);
-    //getchar();
     printf("\nDigite a quantidade do produto em estoque:");
-    fflush(stdin);
     scanf("%d",&Item->quantidade);
-   // getchar();
+    getchar();
     printf("\nDigite o valor do produto:");
-    fflush(stdin);
     scanf("%f",&Item->preco);
-   // getchar();
+    getchar();
 
 }
 void ImprimirProduto(TProduto Item){
@@ -183,6 +176,18 @@ void ConcatenarListas(TLista *L1, TLista *L2, TProduto x) {
         Inserir(x,L1); //OrdemCrescente(x, L1);
     }
 }
+
+void ImprimirRecursiva(TLista *Lista) {
+    if(!Vazia(*Lista)) {
+        ImprimirProduto(Lista, Item);
+       //printf("Info: %d\n", Lista->info);
+        ImprimirRecursiva(Lista->prox, );
+    } else {
+        return;
+    }
+
+
+}
 /*void BuscarDados(TLista Lista, TProduto Item) {
     //Verificação de Validade de i: Precisamos garantir que i é válido, ou seja, i deve ser maior ou igual a 1 e menor ou igual ao tamanho da lista.
     int contador = 1;
@@ -199,5 +204,7 @@ void ConcatenarListas(TLista *L1, TLista *L2, TProduto x) {
     }
     return;
 }*/
+
+
 
 

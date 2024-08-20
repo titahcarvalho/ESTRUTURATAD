@@ -26,7 +26,6 @@ int main(){
 
         switch (escolha) {
             case 1:
-
                     LerProduto(&x);
                     Inserir(x, &L1);
                     Inserir(x,&L2);//segunda lista
@@ -90,6 +89,8 @@ int main(){
             case 7:
                 printf("Unindo as listas...");
                 ConcatenarListas(&L1,&L2, x);
+                printf("Listas concatenadas:");
+                Imprimir(L1);
                 break;
             case 8:
                 LiberarLista(&L1);
