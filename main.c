@@ -11,7 +11,7 @@ int main(){
     FLVazia(&L2);
     int tst;
 
-    while(escolha != 8){
+    while(escolha != 9){
         printf("\n|| MENU ||\n");
         printf("|1| Inserir produtos.\n");
         printf("|2| Buscar um produto.\n");
@@ -20,7 +20,8 @@ int main(){
         printf("|5| Atualizar produtos em estoque.\n");
         printf("|6| Ordem crescente de produtos.\n");
         printf("|7| Concatenar Listas.\n");
-        printf("|8| Sair.\n");
+        printf("|8| Imprimir lista de modo recursivo.\n");
+        printf("|9| Sair.\n");
         printf("Escolha uma das acoes:");
         scanf("%d", &escolha);
 
@@ -93,6 +94,9 @@ int main(){
                 Imprimir(L1);
                 break;
             case 8:
+                ImprimirRecursiva(&L1);
+                break;
+            case 9:
                 LiberarLista(&L1);
                 printf("\nEncerrando...aperta no enter para fechar a Tela");
                 break;

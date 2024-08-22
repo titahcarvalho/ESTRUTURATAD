@@ -176,17 +176,24 @@ void ConcatenarListas(TLista *L1, TLista *L2, TProduto x) {
         Inserir(x,L1); //OrdemCrescente(x, L1);
     }
 }
+/*void ImprimirRecursiva(TCelula *Celula) {
+    if(Celula != NULL) {
+        ImprimirProduto(Celula->item);
+        printf("\nInfo: %s", Celula->item.nome);
+        ImprimirRecursiva(Celula->prox);
+        // Lista->primeiro->prox = NULL;
 
-void ImprimirRecursiva(TLista *Lista) {
-    if(!Vazia(*Lista)) {
-        ImprimirProduto(Lista, Item);
-       //printf("Info: %d\n", Lista->info);
-        ImprimirRecursiva(Lista->prox, );
-    } else {
-        return;
     }
+}
+*/
+void ImprimirRecursiva(TLista *Lista) {
+    if(Lista != NULL) {
+        ImprimirProduto(Lista->primeiro->prox->item);
+        printf("\nInfo: %s", Lista->primeiro->prox->item.nome);
+        ImprimirRecursiva(Lista->primeiro->prox);
+       // Lista->primeiro->prox = NULL;
 
-
+    }
 }
 /*void BuscarDados(TLista Lista, TProduto Item) {
     //Verificação de Validade de i: Precisamos garantir que i é válido, ou seja, i deve ser maior ou igual a 1 e menor ou igual ao tamanho da lista.
