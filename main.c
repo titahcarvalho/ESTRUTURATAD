@@ -21,7 +21,8 @@ int main(){
         printf("|6| Ordem crescente de produtos.\n");
         printf("|7| Concatenar Listas.\n");
         printf("|8| Imprimir lista de modo recursivo.\n");
-        printf("|9| Sair.\n");
+        printf("|9| Imprimir lista Invertida. \n");
+        printf("|10| Sair.\n");
         printf("Escolha uma das acoes:");
         scanf("%d", &escolha);
 
@@ -97,6 +98,10 @@ int main(){
                 ImprimirRecursiva(&L1);
                 break;
             case 9:
+                InverterLista(&L1);
+                Imprimir(L1);
+                break;
+            case 10:
                 LiberarLista(&L1);
                 printf("\nEncerrando...aperta no enter para fechar a Tela");
                 break;

@@ -114,6 +114,7 @@ void LiberarLista2(TLista *Lista){
     Lista->primeiro = NULL;
 
 }
+//QUESTÃO 1-----------------------------------------------------------------
 void Atualizar(TLista *Lista, TProduto Item){
     TCelula *Aux1;
     Aux1 = PesquisarNome(*Lista, Item);
@@ -126,6 +127,7 @@ void Atualizar(TLista *Lista, TProduto Item){
     }
 
 }
+//QUESTÃO 2----------------------------------------------------------------
 void OrdemCrescente(TProduto x, TLista *Lista){
     TCelula *celulaNova = (TCelula*)malloc(sizeof(TCelula));
     celulaNova->item = x;                 //criação da celula nova a ser inserida em ordem crescnte de nome
@@ -147,6 +149,7 @@ void OrdemCrescente(TProduto x, TLista *Lista){
         Aux = Aux->prox;
     }
 }
+//QUESTÃO 3 ----------------------------------------------------------------
 int CompararLista(TLista x, TLista y) {
     int flag;
     flag = 1;
@@ -168,7 +171,23 @@ int CompararLista(TLista x, TLista y) {
     }
      return flag;
 }
+//QUESTÃO 4----------------------------------------------------------------
+void InverterLista(TLista *Lista) {
+    TCelula *Aux1, *Aux2, *Aux3;
+    Aux1 = Lista->primeiro;
+    Aux2 = NULL;
+    Aux3 = NULL;
 
+    Lista->ultimo = Aux1;
+    while(Aux1 != NULL) {
+        Aux2 = Aux1->prox;
+        Aux1->prox = Aux3;
+        Aux3 = Aux1;
+        Aux1 = Aux2;
+    }
+    Lista->primeiro = Aux3;
+    Lista->ultimo->prox = NULL;
+}
 void ConcatenarListas(TLista *L1, TLista *L2, TProduto x) {
     while(Vazia(*L2) != true) { // enquanto a lista 2 não estiver vazia, //função liberarlista e a chamada de Excluir
         x = L2->primeiro->prox->item;
@@ -176,16 +195,26 @@ void ConcatenarListas(TLista *L1, TLista *L2, TProduto x) {
         Inserir(x,L1); //OrdemCrescente(x, L1);
     }
 }
-/*void ImprimirRecursiva(TCelula *Celula) {
-    if(Celula != NULL) {
-        ImprimirProduto(Celula->item);
-        printf("\nInfo: %s", Celula->item.nome);
-        ImprimirRecursiva(Celula->prox);
-        // Lista->primeiro->prox = NULL;
-
+//QUESTÃO 5----------------------------------------------------------------
+//QUESTÃO 6----------------------------------------------------------------
+void BuscarDados(TLista Lista, TProduto Item) {
+    //Verificação de Validade de i: Precisamos garantir que i é válido, ou seja, i deve ser maior ou igual a 1 e menor ou igual ao tamanho da lista.
+    int contador = 1;
+    TCelula* Aux;
+    Aux = Lista.primeiro->prox;
+    while(Aux != NULL) {
+        if(contador == Lista.tamanho){
+            printf("Dados da %d célula:", Aux->item);
+            ImprimirProduto(Aux->prox);
+            Aux = Aux->prox;
+            contador++;
+        }else {
+            printf("Dados não encontrados.");
+        }
     }
-}
-*/
+        return;
+
+//QUESTÃO 7----------------------------------------------------------------
 void ImprimirRecursiva(TLista *Lista) {
     if(Lista != NULL) {
         ImprimirProduto(Lista->primeiro->prox->item);
@@ -195,22 +224,9 @@ void ImprimirRecursiva(TLista *Lista) {
 
     }
 }
-/*void BuscarDados(TLista Lista, TProduto Item) {
-    //Verificação de Validade de i: Precisamos garantir que i é válido, ou seja, i deve ser maior ou igual a 1 e menor ou igual ao tamanho da lista.
-    int contador = 1;
-    TCelula* Aux;
-    Aux = Lista.primeiro->prox;
-    while(Aux != NULL) {
-        if(contador == Lista.tamanho){
-            printf("Dados da %d célula:",xcelulaaprocurar);
-            ImprimirProduto(Aux->prox);
-            Aux = Aux->prox;
-            contador++;
-    }else {
-        printf("Dados não encontrados.");
-    }
-    return;
-}*/
+
+
+
 
 
 
