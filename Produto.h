@@ -39,6 +39,7 @@ void ConcatenarListas(TLista *L1, TLista *L2, TProduto x);
 void ImprimirRecursiva(TLista *Lista);
 void InverterLista(TLista *Lista);
 void ImprimirRecursiva(TCelula *Celula);
+void ImprimirIEsima(TLista *Lista, int n);
 //void BuscarDados();
 #endif
 

@@ -196,7 +196,23 @@ void ConcatenarListas(TLista *L1, TLista *L2, TProduto x) {
     }
 }
 //QUESTÃO 5----------------------------------------------------------------
+void ImprimirIEsima(TLista *Lista, int n){
+    TCelula *Aux1;
+    Aux1 = Lista->primeiro;
+    int contador = 1;
+
+    while(!Vazia(*Lista)) {
+        while(Aux1 != NULL && contador < n) {
+            Aux1 = Aux1->prox;
+            contador++;
+            if(Aux1 != NULL && contador == n) {
+                Imprimir(Aux1->Item.nome); // algo assim ->tá errado
+            } else {
+                printf("Dados incompativeis.");
+            }
+        }
 //QUESTÃO 6----------------------------------------------------------------
+
 void BuscarDados(TLista Lista, TProduto Item) {
     //Verificação de Validade de i: Precisamos garantir que i é válido, ou seja, i deve ser maior ou igual a 1 e menor ou igual ao tamanho da lista.
     int contador = 1;
